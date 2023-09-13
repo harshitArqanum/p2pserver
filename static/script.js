@@ -124,6 +124,12 @@ function setConnectedStatus(status) {
   statusDiv.className = (status) ? "connected" : "reconnecting";
 }
 
+const randomUsername = () => {
+    const guest = "guest";
+    const random = Math.floor(Math.random() * 1000);
+    return guest + random;
+}
+
 // Let's go! Initialize the world.
 function init() {
   // Initialize some rooms.
@@ -133,13 +139,17 @@ function init() {
   addMessage("lobby", "Rocket", "Hey! Open another browser tab, send a message.", true);
   addMessage("rocket", "Rocket", "This is another room. Neat, huh?", true);
 
+  usernameField.value = randomUsername();
+
   // Set up the form handler.
   newMessageForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    
+
     const room = STATE.room;
     const message = messageField.value;
-    const username = usernameField.value || "guest";
+    const username = usernameField.value;
     if (!message || !username) return;
 
     if (STATE.connected) {
